@@ -1,0 +1,14 @@
+pedido:
+  id, name, description
+  CRUD
+  Disparar mensagem quando novo pedido for criado
+
+Mensageria rabbitMQ.
+
+produto:
+  Deve ser feito em Redis.
+  Criar
+  Cancelar
+  Atualizar
+
+Escrever teste unitários e de integração com o banco de dados e a fila de mensagens.
