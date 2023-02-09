@@ -35,4 +35,22 @@ export class PurchaseOrderRepository {
   async findAllPurchaseOrders(): Promise<PurchaseOrder[]> {
     return await this.purchaseOrderRepository.find();
   }
+
+  async updatePurchaseOrder(
+    id: string,
+    purchaseOrderDto: PurchaseOrderDto,
+  ): Promise<PurchaseOrder> {
+    await this.purchaseOrderRepository.update(id, {
+      name: purchaseOrderDto.name,
+      description: purchaseOrderDto.description,
+      quantity: purchaseOrderDto.quantity,
+      price: purchaseOrderDto.price,
+    });
+
+    return this.purchaseOrderRepository.findOne({ where: { id } });
+  }
+
+  async removePurchaseOrder(id: string): Promise<void> {
+    await this.purchaseOrderRepository.delete(id);
+  }
 }

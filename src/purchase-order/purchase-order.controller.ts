@@ -1,5 +1,12 @@
 import { Controller } from '@nestjs/common';
-import { Body, Get, Post } from '@nestjs/common/decorators';
+import {
+  Body,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post
+} from '@nestjs/common/decorators';
 import { PurchaseOrderDto } from './purchase-order-dto';
 import { PurchaseOrder } from './purchase-order.entity';
 import { PurchaseOrderService } from './purchase-order.service';
@@ -22,5 +29,21 @@ export class PurchaseOrderController {
   @Get()
   async findAllPurchaseOrders(): Promise<PurchaseOrder[]> {
     return await this.purchaseOrderService.findAllPurchaseOrders();
+  }
+
+  @Patch(':id')
+  async updatePurchaseOrder(
+    @Param('id') id: string,
+    @Body() purchaseOrderDto: PurchaseOrderDto,
+  ): Promise<PurchaseOrder> {
+    return await this.purchaseOrderService.updatePurchaseOrder(
+      id,
+      purchaseOrderDto,
+    );
+  }
+
+  @Delete(':id')
+  async removePurchaseOrder(@Param('id') id: string): Promise<void> {
+    await this.purchaseOrderService.removePurchaseOrder(id);
   }
 }

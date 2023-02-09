@@ -18,4 +18,18 @@ export class PurchaseOrderService {
   async findAllPurchaseOrders(): Promise<PurchaseOrder[]> {
     return await this.purchaseOrderRepository.findAllPurchaseOrders();
   }
+
+  async updatePurchaseOrder(
+    id: string,
+    purchaseOrderDto: PurchaseOrderDto,
+  ): Promise<PurchaseOrder> {
+    return await this.purchaseOrderRepository.updatePurchaseOrder(
+      id,
+      purchaseOrderDto,
+    );
+  }
+
+  async removePurchaseOrder(id: string): Promise<void> {
+    await this.purchaseOrderRepository.removePurchaseOrder(id);
+  }
 }
