@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { Body, Post } from '@nestjs/common/decorators';
+import { Body, Get, Post } from '@nestjs/common/decorators';
 import { PurchaseOrderDto } from './purchase-order-dto';
 import { PurchaseOrder } from './purchase-order.entity';
 import { PurchaseOrderService } from './purchase-order.service';
@@ -17,5 +17,10 @@ export class PurchaseOrderController {
     );
 
     return purchaseOrder;
+  }
+
+  @Get()
+  async findAllPurchaseOrders(): Promise<PurchaseOrder[]> {
+    return await this.purchaseOrderService.findAllPurchaseOrders();
   }
 }

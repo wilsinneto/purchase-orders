@@ -14,12 +14,14 @@ export class PurchaseOrderRepository {
   async createPurchaseOrder(
     createPurchaseOrderDto: PurchaseOrderDto,
   ): Promise<PurchaseOrder> {
-    const { name, description } = createPurchaseOrderDto;
+    const { name, description, quantity, price } = createPurchaseOrderDto;
 
     const purchaseOrder = this.purchaseOrderRepository.create();
 
     purchaseOrder.name = name;
     purchaseOrder.description = description;
+    purchaseOrder.quantity = quantity;
+    purchaseOrder.price = price;
 
     try {
       await purchaseOrder.save();
@@ -28,5 +30,9 @@ export class PurchaseOrderRepository {
     }
 
     return purchaseOrder;
+  }
+
+  async findAllPurchaseOrders(): Promise<PurchaseOrder[]> {
+    return await this.purchaseOrderRepository.find();
   }
 }

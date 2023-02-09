@@ -14,4 +14,8 @@ export class PurchaseOrderService {
       createPurchaseOrder,
     );
   }
+
+  async findAllPurchaseOrders(): Promise<PurchaseOrder[]> {
+    return await this.purchaseOrderRepository.findAllPurchaseOrders();
+  }
 }
