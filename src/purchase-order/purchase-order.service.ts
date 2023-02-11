@@ -6,17 +6,20 @@ import { PurchaseOrderRepository } from './purchase-order.repository';
 @Injectable()
 export class PurchaseOrderService {
   constructor(private purchaseOrderRepository: PurchaseOrderRepository) {}
-
   async createPurchaseOrder(
     createPurchaseOrder: PurchaseOrderDto,
   ): Promise<PurchaseOrder> {
-    return this.purchaseOrderRepository.createPurchaseOrder(
-      createPurchaseOrder,
-    );
+    const purchaseOrder =
+      this.purchaseOrderRepository.createPurchaseOrder(createPurchaseOrder);
+
+    return purchaseOrder;
   }
 
   async findAllPurchaseOrders(): Promise<PurchaseOrder[]> {
-    return await this.purchaseOrderRepository.findAllPurchaseOrders();
+    const purchaseOrderList =
+      await this.purchaseOrderRepository.findAllPurchaseOrders();
+
+    return purchaseOrderList;
   }
 
   async updatePurchaseOrder(
