@@ -2,28 +2,17 @@ import { Controller } from '@nestjs/common';
 import {
   Body,
   Delete,
-  Get,
-  Inject,
-  Param,
+  Get, Param,
   Patch,
   Post
 } from '@nestjs/common/decorators';
-import { ClientProxy } from '@nestjs/microservices';
-import { timeout } from 'rxjs';
 import { PurchaseOrderDto } from './purchase-order-dto';
 import { PurchaseOrder } from './purchase-order.entity';
 import { PurchaseOrderService } from './purchase-order.service';
 
 @Controller('purchase-orders')
 export class PurchaseOrderController {
-  constructor(
-    private purchaseOrderService: PurchaseOrderService,
-    @Inject('HELLO_SERVICE') private readonly client: ClientProxy,
-  ) {}
-
-  async onApplicationBootstrap() {
-    await this.client.connect();
-  }
+  constructor(private purchaseOrderService: PurchaseOrderService) {}
 
   @Post()
   async createPurchaseOrder(
@@ -38,9 +27,6 @@ export class PurchaseOrderController {
 
   @Get()
   async findAllPurchaseOrders(): Promise<PurchaseOrder[]> {
-    this.client
-      .emit('message_printed', { name: 'Hello World' })
-      .pipe(timeout(5000));
     return await this.purchaseOrderService.findAllPurchaseOrders();
   }
 

@@ -11,7 +11,7 @@ import { PurchaseOrderService } from './purchase-order.service';
     TypeOrmModule.forFeature([PurchaseOrder]),
     ClientsModule.register([
       {
-        name: 'HELLO_SERVICE',
+        name: 'PURCHASE-ORDER_SERVICE',
         transport: Transport.TCP,
       },
     ]),

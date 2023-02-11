@@ -1,16 +1,24 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { ClientProxy } from '@nestjs/microservices';
 import { PurchaseOrderDto } from './purchase-order-dto';
 import { PurchaseOrder } from './purchase-order.entity';
 import { PurchaseOrderRepository } from './purchase-order.repository';
 
 @Injectable()
 export class PurchaseOrderService {
-  constructor(private purchaseOrderRepository: PurchaseOrderRepository) {}
+  constructor(
+    private purchaseOrderRepository: PurchaseOrderRepository,
+    @Inject('PURCHASE-ORDER_SERVICE') private readonly client: ClientProxy,
+  ) {}
   async createPurchaseOrder(
     createPurchaseOrder: PurchaseOrderDto,
   ): Promise<PurchaseOrder> {
     const purchaseOrder =
-      this.purchaseOrderRepository.createPurchaseOrder(createPurchaseOrder);
+      await this.purchaseOrderRepository.createPurchaseOrder(
+        createPurchaseOrder,
+      );
+
+    this.client.emit('purchase-order_created', JSON.stringify(purchaseOrder));
 
     return purchaseOrder;
   }
