@@ -34,13 +34,20 @@ export class PurchaseOrderService {
     id: string,
     purchaseOrderDto: PurchaseOrderDto,
   ): Promise<PurchaseOrder> {
-    return await this.purchaseOrderRepository.updatePurchaseOrder(
-      id,
-      purchaseOrderDto,
-    );
+    const purchaseOrder =
+      await this.purchaseOrderRepository.updatePurchaseOrder(
+        id,
+        purchaseOrderDto,
+      );
+
+    this.client.emit('purchase-order_updated', JSON.stringify(purchaseOrder));
+
+    return purchaseOrder;
   }
 
   async removePurchaseOrder(id: string): Promise<void> {
     await this.purchaseOrderRepository.removePurchaseOrder(id);
+
+    this.client.emit('purchase-order_removed', id);
   }
 }
