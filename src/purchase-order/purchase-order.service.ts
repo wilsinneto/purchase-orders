@@ -10,6 +10,7 @@ export class PurchaseOrderService {
     private purchaseOrderRepository: PurchaseOrderRepository,
     @Inject('PURCHASE-ORDER_SERVICE') private readonly client: ClientProxy,
   ) {}
+
   async createPurchaseOrder(
     createPurchaseOrder: PurchaseOrderDto,
   ): Promise<PurchaseOrder> {
@@ -23,11 +24,8 @@ export class PurchaseOrderService {
     return purchaseOrder;
   }
 
-  async findAllPurchaseOrders(): Promise<PurchaseOrder[]> {
-    const purchaseOrderList =
-      await this.purchaseOrderRepository.findAllPurchaseOrders();
-
-    return purchaseOrderList;
+  findAllPurchaseOrders(): Promise<PurchaseOrder[]> {
+    return this.purchaseOrderRepository.findAllPurchaseOrders();
   }
 
   async updatePurchaseOrder(

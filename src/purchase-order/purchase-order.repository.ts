@@ -32,8 +32,8 @@ export class PurchaseOrderRepository {
     return purchaseOrder;
   }
 
-  async findAllPurchaseOrders(): Promise<PurchaseOrder[]> {
-    return await this.purchaseOrderRepository.find();
+  findAllPurchaseOrders(): Promise<PurchaseOrder[]> {
+    return this.purchaseOrderRepository.find();
   }
 
   async updatePurchaseOrder(

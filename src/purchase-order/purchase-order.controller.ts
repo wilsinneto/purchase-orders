@@ -2,7 +2,8 @@ import { Controller } from '@nestjs/common';
 import {
   Body,
   Delete,
-  Get, Param,
+  Get,
+  Param,
   Patch,
   Post
 } from '@nestjs/common/decorators';
@@ -26,8 +27,8 @@ export class PurchaseOrderController {
   }
 
   @Get()
-  async findAllPurchaseOrders(): Promise<PurchaseOrder[]> {
-    return await this.purchaseOrderService.findAllPurchaseOrders();
+  findAllPurchaseOrders(): Promise<PurchaseOrder[]> {
+    return this.purchaseOrderService.findAllPurchaseOrders();
   }
 
   @Patch(':id')
